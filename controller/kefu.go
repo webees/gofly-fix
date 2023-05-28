@@ -260,14 +260,27 @@ func PostKefuInfo(c *gin.Context) {
 		if password != "" {
 			password = tools.Md5(password)
 		}
-		message := &models.Message{
+		models.DB.Model(&models.Message{}).Update(&models.Message{
 			KefuId: name,
-		}
-		models.DB.Model(&models.Message{}).Update(message)
-		visitor := &models.Visitor{
+		})
+		models.DB.Model(&models.Visitor{}).Update(&models.Visitor{
 			ToId: name,
-		}
-		models.DB.Model(&models.Visitor{}).Update(visitor)
+		})
+		models.DB.Model(&models.ReplyGroup{}).Update(&models.ReplyGroup{
+			UserId: name,
+		})
+		models.DB.Model(&models.ReplyItem{}).Update(&models.ReplyItem{
+			UserId: name,
+		})
+		models.DB.Model(&models.Welcome{}).Update(&models.Welcome{
+			UserId: name,
+		})
+		models.DB.Model(&models.User{}).Update(&models.User{
+			Name:     name,
+			Avator:   avator,
+			Password: password,
+			Nickname: nickname,
+		})
 	}
 
 	c.JSON(200, gin.H{
