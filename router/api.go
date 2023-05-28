@@ -17,8 +17,6 @@ func InitApiRouter(engine *gin.Engine) {
 		v2.POST("/message", middleware.Ipblack, controller.SendMessageV2)
 		//关闭连接
 		v2.GET("/message_close", controller.SendCloseMessageV2)
-		//绑定
-		v2.POST("/bindOfficial", controller.PostBindOfficial)
 		//分页查询消息
 		v2.GET("/messagesPages", controller.GetMessagespages)
 	}
@@ -70,7 +68,7 @@ func InitApiRouter(engine *gin.Engine) {
 	engine.GET("/about", controller.GetAbout)
 	engine.POST("/about", middleware.JwtApiMiddleware, middleware.RbacAuth, controller.PostAbout)
 	engine.GET("/aboutpages", middleware.JwtApiMiddleware, middleware.RbacAuth, controller.GetAbouts)
-	engine.GET("/notice",controller.GetNotice)
+	engine.GET("/notice", controller.GetNotice)
 	engine.POST("/ipblack", middleware.JwtApiMiddleware, middleware.Ipblack, controller.PostIpblack)
 	engine.DELETE("/ipblack", middleware.JwtApiMiddleware, middleware.RbacAuth, controller.DelIpblack)
 	engine.GET("/ipblacks_all", middleware.JwtApiMiddleware, controller.GetIpblacks)
@@ -82,7 +80,7 @@ func InitApiRouter(engine *gin.Engine) {
 	engine.GET("/replys", middleware.JwtApiMiddleware, controller.GetReplys)
 	engine.POST("/reply", middleware.JwtApiMiddleware, middleware.RbacAuth, controller.PostReply)
 	engine.POST("/reply_content", middleware.JwtApiMiddleware, middleware.RbacAuth, controller.PostReplyContent)
-	engine.POST("/reply_content_save", middleware.JwtApiMiddleware, controller.PostReplyContentSave)	
+	engine.POST("/reply_content_save", middleware.JwtApiMiddleware, controller.PostReplyContentSave)
 	engine.DELETE("/reply_content", middleware.JwtApiMiddleware, middleware.RbacAuth, controller.DelReplyContent)
 	engine.DELETE("/reply", middleware.JwtApiMiddleware, middleware.RbacAuth, controller.DelReplyGroup)
 	engine.POST("/reply_search", middleware.JwtApiMiddleware, controller.PostReplySearch)
